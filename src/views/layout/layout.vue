@@ -2,18 +2,16 @@
   <el-container class="layout-container">
     <el-row type="flex" style="width: 100%">
       <el-menu
-        default-active="2"
+        v-bind:default-active="activeKey"
         class="el-menu-vertical-demo"
         :router="true"
-        @open="handleOpen"
-        @close="handleClose"
         @select="selectMenu"
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
         style="width: 200px; height: 100%"
       >
-        <el-menu-item index="1" :route="{name: 'charts'}">
+        <el-menu-item index="1" :route="{name: 'option'}">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </el-menu-item>
@@ -21,14 +19,6 @@
           <i class="el-icon-menu"></i>
           <span slot="title">导航二</span>
         </el-menu-item>
-        <!-- <el-menu-item index="3" :route="{name: 'default'}">
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
-        <el-menu-item index="4" :route="{name: 'default'}">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>-->
       </el-menu>
       <el-container class="layout-right">
         <el-header class="layout-header">
@@ -40,7 +30,8 @@
               <el-dropdown-item>删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span class="user" @click="goToLogin">王小虎</span>
+          <span class="user">结果&nbsp;</span>
+          <span>{{count}}</span>
         </el-header>
 
         <el-main>
@@ -53,34 +44,32 @@
   </el-container>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   props: [],
   data() {
     return {
-      myname: "哈哈哈"
+      activeKey: "1"
     };
   },
   // inheritAttrs: false,   //这个模式允许你在使用基础组件的时候更像是使用原始的 HTML 元素，而不会担心哪个元素是真正的根元素
-  beforeUpdate() {
-    console.log("55555");
-  },
-  mounted() {
-    console.log(1111, this.myname);
-    console.log(33322222);
-  },
+  beforeUpdate() {},
+  mounted() {},
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
     selectMenu(key) {
       console.log(933, key);
+      console.log(444, this.activeKey);
+
+      // this.activeKey = key;
     },
     goToLogin() {
       this.$router.push({ name: "login" });
     }
+  },
+  computed: {
+    ...mapState({
+      count: state => state.calcuModule.count
+    })
   }
 };
 </script>

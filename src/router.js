@@ -5,8 +5,11 @@ import Router from 'vue-router';
 const login = r =>
   require.ensure([], () => r(require('@/views/login/login')), 'login');
 
-const charts = r =>
-  require.ensure([], () => r(require('@/views/charts/index')), 'charts');
+// const charts = r =>
+//   require.ensure([], () => r(require('@/views/charts/index')), 'charts');
+
+const option = r =>
+  require.ensure([], () => r(require('@/views/option/index')), 'option');
 
 const layout = r =>
   require.ensure([], () => r(require('@/views/layout/layout')), 'layout');
@@ -33,12 +36,12 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: layout,
-      redirect: { name: 'default' },
+      // redirect: { name: 'default' },
       children: [
         {
-          path: '/charts',
-          name: 'charts',
-          component: charts,
+          path: '/option',
+          name: 'option',
+          component: option,
         },
         {
           path: '/default',
