@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-// import { getSongList } from "@/api";
 export default {
   name: "songBox",
   props: ["radioList"],
@@ -33,9 +32,6 @@ export default {
       console.log("32", item);
       if (item.id) {
         this.$router.push({ name: "musicList", params: { id: item.id } });
-        // getSongList(item.id).then(item => {
-        //   console.log(9999, item);
-        // });
       }
     }
   }
