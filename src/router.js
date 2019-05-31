@@ -17,6 +17,12 @@ const layout = r =>
 const defaultComp = r =>
   require.ensure([], () => r(require('@/views/default/index')), 'default');
 
+const music = r =>
+  require.ensure([], () => r(require('@/views/music/index')), 'music');
+
+const musicList = r =>
+  require.ensure([], () => r(require('@/views/musicList/index')), 'musicList');
+
 Vue.use(Router);
 
 export default new Router({
@@ -49,6 +55,16 @@ export default new Router({
           component: defaultComp,
         },
       ],
+    },
+    {
+      path: '/music',
+      name: 'music',
+      component: music,
+    },
+    {
+      path: '/musicList',
+      name: 'musicList',
+      component: musicList,
     },
     {
       path: '*',

@@ -2,7 +2,7 @@
   <el-container class="layout-container">
     <el-row type="flex" style="width: 100%">
       <el-menu
-        v-bind:default-active="activeKey"
+        :default-active="activeKey"
         class="el-menu-vertical-demo"
         :router="true"
         @select="selectMenu"
@@ -11,11 +11,11 @@
         active-text-color="#ffd04b"
         style="width: 200px; height: 100%"
       >
-        <el-menu-item index="1" :route="{name: 'option'}">
+        <el-menu-item index="/option" :route="{name: 'option'}">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </el-menu-item>
-        <el-menu-item index="2" :route="{name: 'default'}">
+        <el-menu-item index="/default" :route="{name: 'default'}">
           <i class="el-icon-menu"></i>
           <span slot="title">导航二</span>
         </el-menu-item>
@@ -49,12 +49,14 @@ export default {
   props: [],
   data() {
     return {
-      activeKey: "1"
+      activeKey: "/default"
     };
   },
   // inheritAttrs: false,   //这个模式允许你在使用基础组件的时候更像是使用原始的 HTML 元素，而不会担心哪个元素是真正的根元素
   beforeUpdate() {},
-  mounted() {},
+  mounted() {
+    this.setKey();
+  },
   methods: {
     selectMenu(key) {
       console.log(933, key);
@@ -64,6 +66,11 @@ export default {
     },
     goToLogin() {
       this.$router.push({ name: "login" });
+    },
+    setKey() {
+      setTimeout(() => {
+        this.activeKey = "/default";
+      }, 1000);
     }
   },
   computed: {

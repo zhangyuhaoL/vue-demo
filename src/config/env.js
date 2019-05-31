@@ -10,9 +10,9 @@ let baseUrl = '';
 let routerMode = 'hash';
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://192.168.0.106:55001/';
+  baseUrl = '';
 } else {
-  baseUrl = '//elm.cangdu.org';
+  baseUrl = '';
 }
 
 export { baseUrl, routerMode };

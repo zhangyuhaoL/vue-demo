@@ -35,7 +35,7 @@ export default {
     loginIn() {
       console.log("321", this.$route);
       console.log("123", this.$router);
-      this.$router.push({ name: "home" });
+      this.$router.push({ name: "option" });
     }
   }
 };
