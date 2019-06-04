@@ -12,7 +12,7 @@
 </template>
 <script>
 import { getRanking } from "@/api";
-import songBox from "../songBox/index";
+import songBox from "@/components/music/songBox/index";
 
 export default {
   name: "ranking",

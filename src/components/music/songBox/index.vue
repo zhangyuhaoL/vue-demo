@@ -31,7 +31,7 @@ export default {
     listInfos(item) {
       console.log("32", item);
       if (item.id) {
-        this.$router.push({ name: "musicList", params: { id: item.id } });
+        this.$router.push({ name: "musicList", query: { id: item.id } });
       }
     }
   }

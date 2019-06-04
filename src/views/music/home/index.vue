@@ -15,7 +15,7 @@
 </template>
 <script>
 import { getHomeInfo } from "@/api";
-import songBox from "../songBox/index";
+import songBox from "@/components/music/songBox/index";
 
 export default {
   name: "music-home",

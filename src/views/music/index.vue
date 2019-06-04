@@ -1,6 +1,11 @@
 <template>
   <div class="music-home">
-    <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
+    <el-tabs
+      :indicator-position="null"
+      v-model="activeName"
+      :stretch="true"
+      @tab-click="handleClick"
+    >
       <el-tab-pane label="推荐音乐" name="first">
         <music-home></music-home>
       </el-tab-pane>

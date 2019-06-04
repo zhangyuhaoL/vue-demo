@@ -23,6 +23,9 @@ const music = r =>
 const musicList = r =>
   require.ensure([], () => r(require('@/views/musicList/index')), 'musicList');
 
+const musicPlay = r =>
+  require.ensure([], () => r(require('@/views/musicPlay/index')), 'musicPlay');
+
 Vue.use(Router);
 
 export default new Router({
@@ -65,6 +68,11 @@ export default new Router({
       path: '/musicList',
       name: 'musicList',
       component: musicList,
+    },
+    {
+      path: '/musicPlay',
+      name: 'musicPlay',
+      component: musicPlay,
     },
     {
       path: '*',
