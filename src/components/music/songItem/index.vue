@@ -13,19 +13,24 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "songItem",
-  props: ["songInfo", "keys"],
+  props: ["songInfo", "keys", "list"],
   data() {
     return {};
   },
   methods: {
     playMusic() {
+      this.changeList(this.list || []);
       this.$router.push({
         name: "musicPlay",
         query: { id: this.songInfo.songmid }
       });
-    }
+    },
+    ...mapActions({
+      changeList: "changeList"
+    })
   }
 };
 </script>

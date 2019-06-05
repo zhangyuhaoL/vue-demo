@@ -13,4 +13,5 @@ export const getSongList = data =>
 
 //根据歌曲id, 获取播放 url
 //params: songIdList: id1,id2,id3...
-export const getSongUrl = data => http.get('/api/music/songUrllist', data);
+export const getSongUrl = data =>
+  http.get(`/api/music/songUrllist/${data}`, data);

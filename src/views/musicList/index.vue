@@ -14,7 +14,7 @@
     <div class="list-box">
       <span class="title">歌曲列表</span>
       <div class="content" v-for="(item, key) in songList" :key="key">
-        <song-item :songInfo="item" :keys="key"></song-item>
+        <song-item :songInfo="item" :list="songList" :keys="key"></song-item>
       </div>
     </div>
   </div>

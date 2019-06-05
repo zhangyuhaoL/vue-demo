@@ -23,9 +23,25 @@ const calcuModule = {
     },
   },
 };
+const songModule = {
+  state: {
+    playList: [],
+  },
+  mutations: {
+    changeList(state, payload) {
+      state.playList = payload;
+    },
+  },
+  actions: {
+    changeList({ commit }, payload) {
+      commit('changeList', payload);
+    },
+  },
+};
 
 export default new Vuex.Store({
   modules: {
     calcuModule,
+    songModule,
   },
 });
