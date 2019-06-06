@@ -22,10 +22,11 @@ export default {
   },
   methods: {
     playMusic() {
-      this.changeList(this.list || []);
+      // this.changeList(this.list || []);
+      sessionStorage.setItem("playList", JSON.stringify(this.list));
       this.$router.push({
         name: "musicPlay",
-        query: { id: this.songInfo.songmid }
+        query: { id: this.songInfo.songmid, current: this.keys }
       });
     },
     ...mapActions({

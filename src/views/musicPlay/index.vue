@@ -16,7 +16,20 @@
         <el-slider v-model="currentTime" :max="duration" :show-tooltip="false" @change="changeTime"></el-slider>
         <span class="all">{{allTime}}</span>
       </div>
-      <div class="btns"></div>
+      <div class="btns">
+        <span @click="cutMusic(-1)">
+          <i class="iconfont icon-yduishangyiqu"></i>
+        </span>
+        <span @click="handlePlay">
+          <i class="iconfont" :class="playStatus === 'play' ? 'icon-zanting' : 'icon-bofang'"></i>
+        </span>
+        <span @click="cutMusic(1)">
+          <i class="iconfont icon-yduixiayiqu"></i>
+        </span>
+        <span @click="toggleList">
+          <i class="iconfont icon-liebiao1"></i>
+        </span>
+      </div>
     </div>
     <audio
       class="audio"
@@ -28,19 +41,31 @@
       @durationchange="getDuration"
       @ended="musicEnd"
     ></audio>
+    <play-list
+      :isShow="isShow"
+      :currentIndex="currentIndex"
+      @chooseSong="listChooseMusic"
+      @toggleList="toggleList"
+    ></play-list>
   </div>
 </template>
 <script>
 import { getSongUrl } from "@/api";
 import { mapState } from "vuex";
+import playList from "@/views/musicList/playList/index";
 export default {
   name: "musicPlay",
+  components: {
+    "play-list": playList
+  },
   data() {
     return {
       playStatus: "stop",
       musicSrc: "",
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      currentIndex: this.$route.query.current,
+      isShow: false
     };
   },
   mounted() {
@@ -50,7 +75,7 @@ export default {
   },
   computed: {
     ...mapState({
-      playList: state => state.songModule.playList
+      // playList: state => state.songModule.playList
     }),
     pause() {
       return this.playStatus === "pause"
@@ -94,6 +119,12 @@ export default {
         }
       });
     },
+    listChooseMusic(data) {
+      if (data) {
+        this.currentIndex = data.index;
+        this.getMusics(data.songmid);
+      }
+    },
     //暂停
     musicPause() {
       this.$refs.audio.pause();
@@ -135,7 +166,12 @@ export default {
     },
     musicEnd() {
       this.playStatus = "end";
-      console.log("播放结束了");
+    },
+    cutMusic(index) {
+      console.log(index, this.playList);
+    },
+    toggleList() {
+      this.isShow = !this.isShow;
     }
   }
 };
@@ -278,6 +314,43 @@ export default {
               height: 8px;
               border: none;
             }
+          }
+        }
+      }
+    }
+    .btns {
+      position: relative;
+      width: 400px;
+      height: 60px;
+
+      margin: 0 auto;
+      margin-top: 20px;
+      text-align: center;
+      line-height: 60px;
+      span {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+
+        text-align: center;
+        line-height: 50px;
+        color: #fff;
+        vertical-align: middle;
+        i {
+          font-size: 44px;
+        }
+        &:nth-child(2) {
+          margin: 0 25px;
+        }
+        &:nth-child(3) {
+          margin-right: 25px;
+        }
+        &:nth-child(4) {
+          position: absolute;
+          right: 0;
+          top: 3px;
+          i {
+            font-size: 36px;
           }
         }
       }
