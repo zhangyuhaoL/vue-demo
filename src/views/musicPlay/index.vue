@@ -17,6 +17,9 @@
         <span class="all">{{allTime}}</span>
       </div>
       <div class="btns">
+        <span @click="setPlayWay">
+          <i class="iconfont" :class="playWayIcon[playWay]"></i>
+        </span>
         <span @click="cutMusic(-1)">
           <i class="iconfont icon-yduishangyiqu"></i>
         </span>
@@ -35,6 +38,7 @@
       class="audio"
       ref="audio"
       preload="auto"
+      :loop="playWay === 'cycle' ? 'loop': false"
       :src="musicSrc"
       @canplay="initPlay"
       @timeupdate="setNowTime"
@@ -46,6 +50,7 @@
       :currentIndex="currentIndex"
       @chooseSong="listChooseMusic"
       @toggleList="toggleList"
+      @getCurList="setSongList"
     ></play-list>
   </div>
 </template>
@@ -60,12 +65,19 @@ export default {
   },
   data() {
     return {
-      playStatus: "stop",
-      musicSrc: "",
-      currentTime: 0,
-      duration: 0,
-      currentIndex: this.$route.query.current,
-      isShow: false
+      playStatus: "stop", //播放状态 stop:停止，play:播放,pause:暂停
+      musicSrc: "", //播放地址
+      currentTime: 0, //当前播放时间长度
+      duration: 0, //总时长
+      currentIndex: this.$route.query.current, //当前播放音乐index
+      isShow: false, //播放列表
+      curPlayList: [], //当前播放列表
+      playWay: "order", //播放方式order:顺序,random:随机,cycle: 单曲循环
+      playWayIcon: {
+        order: "icon-xunhuan",
+        random: "icon-suijibofang",
+        cycle: "icon-danquxunhuan"
+      }
     };
   },
   mounted() {
@@ -85,10 +97,18 @@ export default {
         : "";
     },
     current() {
-      return this.formateTime(this.currentTime);
+      return (
+        ((this.currentTime || this.currentTime === 0) &&
+          this.formateTime(this.currentTime)) ||
+        "0:0"
+      );
     },
     allTime() {
-      return this.formateTime(this.duration);
+      return (
+        ((this.formateTime || this.formateTime === 0) &&
+          this.formateTime(this.duration)) ||
+        "0:0"
+      );
     }
   },
   methods: {
@@ -100,16 +120,26 @@ export default {
       }
     },
     handlePlay() {
-      if (this.playStatus === "play") {
-        this.playStatus = "pause";
-        this.musicPause();
+      if (this.curPlayList.length > 0) {
+        if (this.playStatus === "play") {
+          this.playStatus = "pause";
+          this.musicPause();
+        } else {
+          this.playStatus = "play";
+          this.musicPlay();
+        }
       } else {
-        this.playStatus = "play";
-        this.musicPlay();
+        this.$notify({
+          title: "没有更多歌曲了",
+          position: "top-right"
+        });
       }
     },
     //获取音乐
     getMusics(params) {
+      this.musicSrc = "";
+      this.playStatus = "stop";
+      this.currentTime = 0;
       getSongUrl(params).then(data => {
         if (data && data.data) {
           this.musicSrc = data.data[0];
@@ -123,6 +153,10 @@ export default {
       if (data) {
         this.currentIndex = data.index;
         this.getMusics(data.songmid);
+      } else {
+        this.currentIndex = 0;
+        this.musicSrc = "";
+        this.playStatus = "stop";
       }
     },
     //暂停
@@ -137,7 +171,7 @@ export default {
     setNowTime() {
       if (this.$refs.audio) {
         const currentTime = this.$refs.audio.currentTime;
-        if (currentTime) {
+        if (currentTime || currentTime === 0) {
           this.currentTime = currentTime;
         }
       }
@@ -162,16 +196,91 @@ export default {
     },
     //拉动滚动条
     changeTime(val) {
-      this.$refs.audio.currentTime = val;
+      if (val || val === 0) {
+        this.$refs.audio.currentTime = val;
+      }
     },
     musicEnd() {
-      this.playStatus = "end";
+      if (this.curPlayList.length > 0) {
+        if (this.playWay !== "cycle") {
+          //只有不是单曲循环才设置下一首的index
+          this.setNextIndex(1);
+          this.getMusics(this.curPlayList[this.currentIndex].songmid);
+        }
+      } else {
+        this.musicSrc = "";
+        this.playStatus = "stop";
+        this.currentTime = 0;
+        this.currentIndex = 0;
+        setTimeout(() => {
+          this.duration = 0;
+        }, 0);
+      }
     },
+    //切换上一曲，下一曲
     cutMusic(index) {
-      console.log(index, this.playList);
+      if (this.curPlayList.length > 1) {
+        this.setNextIndex(index);
+        this.getMusics(this.curPlayList[this.currentIndex].songmid);
+      } else {
+        this.$notify({
+          title: "没有更多歌曲了",
+          position: "top-right"
+        });
+      }
     },
     toggleList() {
       this.isShow = !this.isShow;
+    },
+    //因为需要跟子组件的歌曲列表保持同步，所以不能从session取
+    setSongList(data) {
+      if (data) {
+        this.curPlayList = data.list;
+        if (data.index) {
+          this.currentIndex = data.index;
+        }
+      } else {
+        this.currentTime = 0;
+        this.musicSrc = "";
+        this.playStatus = "stop";
+
+        this.curPlayList = [];
+        this.currentIndex = 0;
+        setTimeout(() => {
+          this.duration = 0;
+        }, 0);
+      }
+    },
+    //设置播放方式
+    setPlayWay() {
+      if (this.playWay === "order") {
+        this.playWay = "random";
+      } else if (this.playWay === "random") {
+        this.playWay = "cycle";
+      } else {
+        this.playWay = "order";
+      }
+    },
+    //根据播放方式选择下一首要播放的歌
+    setNextIndex(index) {
+      if (this.playWay === "random") {
+        const length = this.curPlayList.length;
+        this.currentIndex = parseInt(Math.random() * length);
+      } else {
+        if (index > 0) {
+          if (this.currentIndex >= this.curPlayList.length - 1) {
+            this.currentIndex = 0;
+          } else {
+            this.currentIndex = parseInt(this.currentIndex) + parseInt(index);
+          }
+        } else {
+          if (this.currentIndex <= 0) {
+            this.currentIndex = this.curPlayList.length - 1;
+          } else {
+            this.currentIndex = parseInt(this.currentIndex) + parseInt(index);
+          }
+        }
+      }
     }
   }
 };
@@ -339,18 +448,21 @@ export default {
         i {
           font-size: 44px;
         }
-        &:nth-child(2) {
+        &:nth-child(3) {
           margin: 0 25px;
         }
-        &:nth-child(3) {
+        &:nth-child(4) {
           margin-right: 25px;
         }
-        &:nth-child(4) {
-          position: absolute;
-          right: 0;
-          top: 3px;
+        &:nth-child(5) {
           i {
             font-size: 36px;
+          }
+        }
+        &:nth-child(1) {
+          margin-right: 25px;
+          i {
+            font-size: 38px;
           }
         }
       }

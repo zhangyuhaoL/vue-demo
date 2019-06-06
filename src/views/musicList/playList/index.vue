@@ -1,30 +1,32 @@
 <template>
-  <div class="mask-container" :class="isShow ? 'go-in' : ''">
-    <div class="top-none" @click="toggleList"></div>
-    <div class="list-container">
-      <div class="header">
-        <span>歌曲列表</span>
-        <span>
-          <i class="iconfont icon-shanchu"></i>
-        </span>
-      </div>
-      <div class="song-box">
-        <div
-          class="line"
-          v-for="(item, index) in playList"
-          :key="index"
-          :class="index.toString() === currentIndex.toString()  ? 'current' : ''"
-          @click="chooseSong(item, index)"
-        >
-          <div class="song-info">
-            <span>{{item.songname}}&nbsp;</span>
-            <span>- {{item.singer}}</span>
+  <transition name="go-in">
+    <div class="mask-container" v-if="isShow">
+      <div class="top-none" @click="toggleList"></div>
+      <div class="list-container">
+        <div class="header">
+          <span>歌曲列表</span>
+          <span>
+            <i class="iconfont icon-shanchu" @click="clearList"></i>
+          </span>
+        </div>
+        <div class="song-box">
+          <div
+            class="line"
+            v-for="(item, index) in playList"
+            :key="index"
+            :class="index.toString() === currentIndex.toString()  ? 'current' : ''"
+            @click="chooseSong(item, index)"
+          >
+            <div class="song-info">
+              <span>{{item.songname}}&nbsp;</span>
+              <span>- {{item.singer}}</span>
+            </div>
+            <div class="delete" @click.stop="deleteSong(index)">×</div>
           </div>
-          <div class="delete">×</div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -35,9 +37,9 @@ export default {
     };
   },
   mounted() {
-    console.log("333", this.currentIndex);
     if (sessionStorage.playList) {
       this.playList = JSON.parse(sessionStorage.playList);
+      this.$emit("getCurList", { list: this.playList });
     }
   },
   methods: {
@@ -48,16 +50,60 @@ export default {
     },
     toggleList() {
       this.$emit("toggleList");
+    },
+    deleteSong(index) {
+      //删除列表后的播放列表不跟session中的一样
+      //因为从路由传到播放处的index是永远不会变的，当页面刷新后会重置到初始化，删除的数据又会恢复
+      this.playList.splice(index, 1);
+      if (index.toString() === this.currentIndex.toString()) {
+        if (this.playList.length > 0) {
+          if (index >= this.playList.length) {
+            this.$emit("chooseSong", {
+              songmid: this.playList[index - 1].songmid,
+              index: index - 1
+            });
+          } else {
+            this.$emit("chooseSong", {
+              songmid: this.playList[index].songmid,
+              index
+            });
+          }
+          this.$emit("getCurList", { list: this.playList });
+        } else {
+          this.$emit("chooseSong", null);
+        }
+      } else {
+        if (index > this.currentIndex) {
+          this.$emit("getCurList", { list: this.playList });
+        } else {
+          this.$emit("getCurList", {
+            list: this.playList,
+            index: this.currentIndex - 1
+          });
+        }
+      }
+    },
+    //删除全部
+    clearList() {
+      this.playList = [];
+      this.$emit("getCurList", null);
     }
   }
 };
 </script>
 <style lang="less" scoped>
+.go-in-enter-active,
+.go-in-leave-active {
+  transition: all 0.3s;
+}
+.go-in-enter, .go-in-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(100%);
+}
 .mask-container {
   z-index: 20;
   position: fixed;
   left: 0;
-  top: 100%;
+  top: 0;
   width: 100%;
   height: 100%;
 
@@ -102,10 +148,12 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 8px 0;
+        vertical-align: middle;
         .song-info {
           span {
             vertical-align: bottom;
             &:first-child {
+              display: inline-block;
               font-size: 16px;
             }
             &:nth-child(2) {
@@ -113,6 +161,9 @@ export default {
               color: #888686;
             }
           }
+        }
+        .delete {
+          font-size: 18px;
         }
       }
       .current {
@@ -122,8 +173,5 @@ export default {
       }
     }
   }
-}
-.go-in {
-  top: 0;
 }
 </style>
