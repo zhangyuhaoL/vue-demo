@@ -57,7 +57,7 @@ export default {
       margin: 0;
     }
     .song-name {
-      font-size: 18px;
+      font-size: 16px;
       color: #333;
       line-height: 25px;
     }

@@ -315,8 +315,8 @@ export default {
     padding-top: 80px;
     .song-disc {
       position: relative;
-      width: 342px;
-      height: 342px;
+      width: 300px;
+      height: 300px;
 
       margin: 0 auto;
       .bar {
@@ -347,8 +347,8 @@ export default {
         background-repeat: no-repeat;
         img {
           position: absolute;
-          top: 66px;
-          left: 66px;
+          top: 44px;
+          left: 44px;
 
           border-radius: 50%;
           width: 212px;
@@ -363,8 +363,8 @@ export default {
         }
         .play-btn {
           position: absolute;
-          top: 140px;
-          left: 140px;
+          top: 118px;
+          left: 118px;
           width: 65px;
           height: 65px;
 
@@ -392,6 +392,7 @@ export default {
     .process {
       display: flex;
       width: 100%;
+      margin-top: 20px;
       .current {
         flex: 0 0 50px;
         color: #fff;
@@ -429,40 +430,36 @@ export default {
     }
     .btns {
       position: relative;
-      width: 400px;
+      width: 100%;
       height: 60px;
+      display: flex;
+      justify-content: space-around;
 
       margin: 0 auto;
-      margin-top: 20px;
+      margin-top: 30px;
       text-align: center;
       line-height: 60px;
       span {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
 
         text-align: center;
-        line-height: 50px;
+        line-height: 40px;
         color: #fff;
         vertical-align: middle;
         i {
-          font-size: 44px;
+          font-size: 38px;
         }
-        &:nth-child(3) {
-          margin: 0 25px;
-        }
-        &:nth-child(4) {
-          margin-right: 25px;
-        }
+
         &:nth-child(5) {
           i {
-            font-size: 36px;
+            font-size: 30px;
           }
         }
         &:nth-child(1) {
-          margin-right: 25px;
           i {
-            font-size: 38px;
+            font-size: 32px;
           }
         }
       }

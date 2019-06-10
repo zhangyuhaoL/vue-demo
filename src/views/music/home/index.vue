@@ -1,7 +1,7 @@
 <template>
   <div class="home-content">
     <div class="slider">
-      <el-carousel arrow="never" :autoplay="true" height="200px">
+      <el-carousel arrow="never" :autoplay="true" height="200px" indicator-position="none">
         <el-carousel-item v-for="(item, index) in slider" :key="index">
           <img :src="item" alt="封面">
         </el-carousel-item>

@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     listInfos(item) {
-      console.log("32", item);
       if (item.id) {
         this.$router.push({ name: "musicList", query: { id: item.id } });
       }
