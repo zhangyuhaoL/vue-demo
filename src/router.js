@@ -26,6 +26,9 @@ const musicList = r =>
 const musicPlay = r =>
   require.ensure([], () => r(require('@/views/musicPlay/index')), 'musicPlay');
 
+const gobang = r =>
+require.ensure([], () => r(require('@/views/gobang/index')), 'gobang');
+
 Vue.use(Router);
 
 export default new Router({
@@ -73,6 +76,11 @@ export default new Router({
       path: '/musicPlay',
       name: 'musicPlay',
       component: musicPlay,
+    },
+    {
+      path: '/gobang',
+      name: 'gobang',
+      component: gobang,
     },
     {
       path: '*',
