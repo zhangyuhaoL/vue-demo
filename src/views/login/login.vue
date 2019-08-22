@@ -11,8 +11,8 @@
         <el-input type="password" size="medium" v-model="password" placeholder="密码"></el-input>
       </div>
       <div class="box">
-        <el-button type="primary" style="margin: 0 auto" @click="loginIn">主要按钮</el-button>
-        <el-button type="primary" style="margin: 0 auto" @click="change">主要按3钮</el-button>
+        <el-button type="primary" style="margin: 0 auto" @click="loginIn">听听音乐</el-button>
+        <el-button type="primary" style="margin: 0 auto" @click="change">下五子棋</el-button>
       </div>
       <div>
         <el-slider v-model="currentTime" :max="duration" :show-tooltip="false" @change="changeTime"></el-slider>
@@ -39,9 +39,7 @@ export default {
   },
   methods: {
     loginIn() {
-      console.log("321", this.$route);
-      console.log("123", this.$router);
-      this.$router.push({ name: "option" });
+      this.$router.push({ name: "music" });
     },
     changeTime(val) {
       console.log(val);
@@ -51,6 +49,8 @@ export default {
       setTimeout(() => {
         this.duration = 0;
       }, 0);
+      // console.log(this.$route);
+      this.$router.push({ name: "gobang" });
     }
   }
 };
