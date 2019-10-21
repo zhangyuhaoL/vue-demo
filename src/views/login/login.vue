@@ -20,7 +20,7 @@
     </div>
     <div class="photo">
       <div class="photo-container">
-        <video ref="video" width="400" height="300" autoplay></video>
+        <video ref="video" width="400" height="400" autoplay></video>
         <canvas ref="canvas" width="400" height="300"></canvas>
       </div>
       <el-button type="primary" style="margin: 0 auto" @click="takePhoto">拍照</el-button>
@@ -85,12 +85,11 @@ export default {
       console.log("eeee", e.target.files[0]);
     },
     openCamara() {
-      console.log(8888, this.$refs.video);
       // const canvas = this.$refs.canvas;
       // const context = canvas.getContext("2d");
       let video = this.$refs.video;
 
-      console.log(33333, navigator.mediaDevices);
+      console.log(33333, navigator);
       console.log(444444, navigator.getUserMedia);
 
       if (navigator.mediaDevices === undefined) {
@@ -138,6 +137,7 @@ export default {
         })
         .catch(function(err) {
           console.log(err.name + ": " + err.message);
+          console.log("dddf");
         });
     }
   }
