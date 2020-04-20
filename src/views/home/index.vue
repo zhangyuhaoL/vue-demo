@@ -241,6 +241,8 @@ export default {
     width: 100px;
     height: 100px;
     background-image: url(../../assets/home/回到VIP.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
   }
   .header {
     width: 100%;
