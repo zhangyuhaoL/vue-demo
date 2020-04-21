@@ -89,7 +89,7 @@ export default {
   components: {},
   data() {
     return {
-      now: 3,
+      now: 2,
       datas: [1, 2, 3, 4, 5, 6, 7],
       packageWay: 0,
       payWay: 0,
@@ -176,7 +176,7 @@ export default {
       if (this.now !== 1) {
         const curIndex = this.datas.findIndex(item => item === this.now);
         if (curIndex > -1) {
-          const delArr = this.datas.splice(0, this.now);
+          const delArr = this.datas.splice(0, curIndex);
           this.datas.splice(this.datas.length, 0, ...delArr);
         }
       }

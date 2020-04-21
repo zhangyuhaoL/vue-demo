@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "myFirstFont";
+  src: url("./UKIJTor.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.first-font {
+  font-family: "myFirstFont" !important;
+}

@@ -6,13 +6,13 @@
  * baseImgPath: 图片存放地址
  *
  */
-let baseUrl = '';
-let routerMode = 'hash';
+let baseUrl = "";
+let routerMode = "hash";
 
-if (process.env.NODE_ENV == 'development') {
-  baseUrl = '';
+if (process.env.NODE_ENV == "development") {
+  baseUrl = "http://livetest.inlive.net.cn";
 } else {
-  baseUrl = '';
+  baseUrl = "http://www.inlive.net.cn";
 }
 
 export { baseUrl, routerMode };

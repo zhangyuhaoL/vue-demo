@@ -8,6 +8,9 @@ const login = (r) =>
 const home = (r) =>
   require.ensure([], () => r(require("@/views/home")), "home");
 
+const ranking = (r) =>
+  require.ensure([], () => r(require("@/views/ranking")), "ranking");
+
 Vue.use(Router);
 
 export default new Router({
@@ -28,7 +31,11 @@ export default new Router({
       name: "home",
       component: home,
     },
-
+    {
+      path: "/ranking",
+      name: "ranking",
+      component: ranking,
+    },
     // {
     //   path: '/home',
     //   name: 'home',

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="transBox">
-      <router-view/>
+      <router-view />
     </transition>
   </div>
 </template>
@@ -12,6 +12,7 @@ export default {};
 
 
 <style lang="less">
+// @import "./assets/css/common.css";
 html {
   width: 100%;
   height: 100%;

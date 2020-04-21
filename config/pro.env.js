@@ -1,4 +1,4 @@
 module.exports = {
-  NODE_ENV: 'production',
-  hosturl: '',
+  NODE_ENV: "production",
+  hosturl: "http://www.inlive.net.cn",
 };
