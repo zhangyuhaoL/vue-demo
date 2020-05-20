@@ -4,6 +4,13 @@
       <!-- <img src="" alt="" /> -->
     </header>
     <div class="content">
+      <div class="role-content">
+        <div class="btn" @click="goRule('han')"></div>
+        <div class="btn" @click="goRule('wei')"></div>
+      </div>
+      <div class="info-box">
+        <div class="info"></div>
+      </div>
       <div class="time-item">
         <span
           v-for="(item, key) in time"
@@ -78,27 +85,16 @@ export default {
   data() {
     return {
       time: [
-        moment()
-          .subtract(4, "day")
-          .valueOf(),
-        moment()
-          .subtract(3, "day")
-          .valueOf(),
-        moment()
-          .subtract(2, "day")
-          .valueOf(),
-        moment()
-          .subtract(1, "day")
-          .valueOf(),
-        moment().valueOf()
+        moment("2020-05-17").valueOf(),
+        moment("2020-05-18").valueOf(),
+        moment("2020-05-19").valueOf()
       ],
-      current: 4,
+      current: 2,
       starttime: moment(),
       rankList: {}
     };
   },
   created() {
-    console.log(888);
     this.getList();
   },
   methods: {
@@ -116,6 +112,14 @@ export default {
             this.rankList = {};
           }
         });
+    },
+    goRule(type) {
+      this.$router.push({
+        name: "ruleInfo",
+        query: {
+          type
+        }
+      });
     },
     handleCurrent(key) {
       if (this.current !== key) {
@@ -136,11 +140,11 @@ export default {
 <style lang="less" scoped>
 .bg_image(@url) {
   background-image: url("@{url}.png");
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   @media (-webkit-min-device-pixel-ratio: 2) {
     background-image: url("@{url}@2x.png");
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
   }
 }
@@ -148,16 +152,47 @@ export default {
   width: 100%;
   header {
     width: 100%;
-    height: 437px;
-    .bg_image("../../assets/ranking/toutu");
+    padding-bottom: 70%;
+    .bg_image("../../assets/liveActive/h5_toutu_bj");
   }
 
   .content {
     position: relative;
     width: 100%;
     padding-top: 52px;
-    background-color: #030b38;
-    border-radius: 5px 5px 0 0;
+    background-color: #2032bc;
+    .role-content {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 52px;
+      margin-bottom: 48px;
+      .btn {
+        &:first-child {
+          width: 268px;
+          height: 52px;
+          margin-right: 40px;
+          .bg_image("../../assets/liveActive/guizu_han_btn");
+        }
+        &:last-child {
+          width: 296px;
+          height: 80px;
+          .bg_image("../../assets/liveActive/guizu_wei_btn");
+        }
+      }
+    }
+    .info-box {
+      width: 100%;
+      margin-bottom: 48px;
+      padding: 0 20px;
+      box-sizing: border-box;
+      .info {
+        width: 100%;
+        padding-bottom: 20%;
+        border-radius: 20px;
+        .bg_image("../../assets/liveActive/wanfa");
+      }
+    }
     .time-item {
       display: flex;
       justify-content: space-between;

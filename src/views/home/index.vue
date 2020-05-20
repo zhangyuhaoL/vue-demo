@@ -186,6 +186,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.bg_image(@url) {
+  background-image: url("@{url}.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url("@{url}@2x.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+}
 .home {
   position: relative;
   width: 100%;
@@ -197,7 +207,7 @@ export default {
     right: 30px;
     width: 64px;
     height: 64px;
-    background-image: url(../../assets/home/分享按钮.png);
+    .bg_image("../../assets/home/分享按钮");
   }
   .pay-fixed {
     position: fixed;
@@ -215,9 +225,7 @@ export default {
       width: 100%;
       height: 100%;
       text-align: center;
-      background-image: url(../../assets/home/支付按钮.png);
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
+      .bg_image("../../assets/home/支付按钮");
       .info {
         margin-right: 18px;
         font-size: 30px;

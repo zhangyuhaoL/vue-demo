@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: zhangyuhao
+ * @Date: 2020-04-17 16:05:22
+ * @LastEditTime: 2020-05-20 16:57:07
+ * @LastEdiors: zhangyuhao
+ */
 const path = require("path");
 // function resolve(dir) {
 //   return path.join(__dirname, '..', dir);
@@ -7,6 +14,7 @@ const autoprefixer = require("autoprefixer"); // 用于配置不同浏览器css�
 const pxtorem = require("postcss-pxtorem");
 
 module.exports = {
+  publicPath: "./", // 根域上下文目录
   devServer: {
     // 设置主机地址
     // host: 'localhost',
