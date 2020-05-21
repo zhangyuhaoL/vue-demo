@@ -11,6 +11,9 @@
       <div class="info-box">
         <div class="info"></div>
       </div>
+      <div class="rank-box">
+        <div class="bg"></div>
+      </div>
       <div class="time-item">
         <span
           v-for="(item, key) in time"
@@ -55,7 +58,7 @@
         </div>
         <div class="lines" v-else></div>
       </div>
-      <div class="desc">
+      <!-- <div class="desc">
         人气值：主播可通过直播时长、观看人数、
         互动情况和礼物收入来积累人气值哦！
       </div>
@@ -63,11 +66,11 @@
         class="desc first-font"
       >ئالقىشلىق دەرىجە: دېكتورلار كۆرۈرمەن سانى، بىۋاستە كۆرسىتىشنىڭ ۋاقتى، كىرىملاردىن پايدىلىنىپ ئالقىشلىق دەرىجىسىنى ئۆستۈرەلەيدۇ</div>
       <div class="desc second">人气值计算以开播时间为准</div>
-      <div class="desc first-font">نەتىجىڭىز بىۋاستە كۆرسىتىشنى باشلىغان كۈنىڭىزگە تەۋە</div>
-      <footer>
+      <div class="desc first-font">نەتىجىڭىز بىۋاستە كۆرسىتىشنى باشلىغان كۈنىڭىزگە تەۋە</div>-->
+      <!-- <footer>
         <p>پىنتوزىلار، ياقتۇرغان دېكتورغا مەدەت بېرىشنى ئۇنۇتماڭلار جۇمۇ</p>
         <p>亲爱的用户们，快去为自己喜欢的主播增加人气值吧！</p>
-      </footer>
+      </footer>-->
     </div>
   </div>
 </template>
@@ -160,6 +163,7 @@ export default {
     position: relative;
     width: 100%;
     padding-top: 52px;
+    padding-bottom: 50px;
     background-color: #2032bc;
     .role-content {
       display: flex;
@@ -183,28 +187,39 @@ export default {
     }
     .info-box {
       width: 100%;
-      margin-bottom: 48px;
-      padding: 0 20px;
+      margin-bottom: 20px;
+      padding: 0 30px;
       box-sizing: border-box;
       .info {
         width: 100%;
-        padding-bottom: 20%;
+        padding-bottom: 57%;
         border-radius: 20px;
         .bg_image("../../assets/liveActive/wanfa");
+      }
+    }
+    .rank-box {
+      width: 100%;
+      margin-bottom: 38px;
+      padding: 0 100px;
+      box-sizing: border-box;
+      .bg {
+        width: 100%;
+        padding-bottom: 22%;
+        .bg_image("../../assets/liveActive/paihangbang");
       }
     }
     .time-item {
       display: flex;
       justify-content: space-between;
       padding: 0 63px;
-      color: #8b8e9c;
-      font-size: 20px;
+      color: rgba(256, 256, 256, 0.5);
+      font-size: 30px;
       span {
         flex: 0 0 auto;
-        width: 20%;
+        width: 140px;
         text-align: center;
         &.choosed {
-          color: #fff;
+          color: rgba(256, 256, 256, 1);
         }
       }
     }
@@ -243,6 +258,7 @@ export default {
     }
     .infos {
       margin-top: 20px;
+      overflow: hidden;
       .head {
         display: flex;
         justify-content: space-between;

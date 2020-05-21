@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: zhangyuhao
  * @Date: 2020-05-20 17:27:49
- * @LastEditTime: 2020-05-20 18:25:52
+ * @LastEditTime: 2020-05-21 09:35:31
  * @LastEdiors: zhangyuhao
 --> 
 
@@ -27,16 +27,17 @@ export default {
 <style lang="less" scoped>
 .bg_image(@url) {
   background-image: url("@{url}.png");
-  background-size: contain;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   @media (-webkit-min-device-pixel-ratio: 2) {
     background-image: url("@{url}@2x.png");
-    background-size: contain;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
   }
 }
 .container {
-  min-height: 100%;
+  height: 100vh;
+  overflow: scroll;
   background-color: #2032bc;
 }
 .main-box {
