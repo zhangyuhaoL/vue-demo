@@ -19,7 +19,7 @@
           v-for="(item, key) in time"
           :key="key"
           :class="current === key ? 'choosed' : ''"
-          @click="handleCurrent(key)"
+          @click="handleCurrent(key, item)"
         >{{ getDate(item) }}</span>
       </div>
       <div class="time-line">
@@ -82,17 +82,18 @@ import { baseUrl } from "@/config/config";
 import moment from "moment";
 export default {
   beforeRouteEnter(to, from, next) {
-    document.title = "人气值排行榜";
+    document.title = "直播间·狂收礼";
     next();
   },
   data() {
     return {
       time: [
-        moment("2020-05-17").valueOf(),
-        moment("2020-05-18").valueOf(),
-        moment("2020-05-19").valueOf()
+        moment("2020-05-22").valueOf(),
+        moment("2020-05-23").valueOf(),
+        moment("2020-05-24").valueOf(),
+        moment("2020-05-25").valueOf()
       ],
-      current: 2,
+      current: 0,
       starttime: moment(),
       rankList: {}
     };
@@ -124,7 +125,10 @@ export default {
         }
       });
     },
-    handleCurrent(key) {
+    handleCurrent(key, time) {
+      if (moment() < moment(time)) {
+        return;
+      }
       if (this.current !== key) {
         this.current = key;
         this.getList();
@@ -216,7 +220,7 @@ export default {
       font-size: 30px;
       span {
         flex: 0 0 auto;
-        width: 140px;
+        width: 20%;
         text-align: center;
         &.choosed {
           color: rgba(256, 256, 256, 1);

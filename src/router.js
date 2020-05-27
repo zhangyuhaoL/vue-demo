@@ -2,7 +2,7 @@
  * @Description:
  * @Author: zhangyuhao
  * @Date: 2020-04-17 16:05:22
- * @LastEditTime: 2020-05-20 17:52:27
+ * @LastEditTime: 2020-05-22 17:50:50
  * @LastEdiors: zhangyuhao
  */
 
@@ -86,9 +86,9 @@ export default new Router({
     //     },
     //   ],
     // },
-    {
-      path: "*",
-      redirect: "/ranking",
-    },
+    // {
+    //   path: "*",
+    //   redirect: "/ranking",
+    // },
   ],
 });
