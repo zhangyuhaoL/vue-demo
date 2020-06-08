@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: zhangyuhao
  * @Date: 2020-06-05 17:50:44
- * @LastEditTime: 2020-06-08 11:08:41
+ * @LastEditTime: 2020-06-08 16:46:13
  * @LastEdiors: zhangyuhao
 --> 
 <template>
@@ -44,12 +44,17 @@
       <img src="@/assets/img/three/three5.png" alt />
     </div>
 
-    <img src="@/assets/img/bg/bg5.png" alt />
+    <img src="@/assets/img/bg/bg5.png" alt @click="share" />
     <img src="@/assets/img/bg/bg6.png" alt />
   </div>
 </template>
 
 <script>
+import { param } from "@/utils/tools";
+import {
+  callAppFunc_WebShare,
+  callAppFunc_Jump2KoznakVip
+} from "../../utils/javascriptAppBridge";
 export default {
   name: "three",
   props: ["isHidden"],
@@ -93,7 +98,26 @@ export default {
   },
   methods: {
     goMovie(item) {
-      console.log(1111, item);
+      param.eventType = "1";
+      param.mess = `播放-${item.name}`;
+      this.reportStat(param);
+      const data = {
+        type: 510001,
+        video_id: item.id
+      };
+
+      callAppFunc_Jump2KoznakVip(data);
+    },
+    share() {
+      param.eventType = "1";
+      param.mess = "分享";
+
+      const data = {
+        shareTitle: "ئەڭ ئالقىشلىق فىلىمنى ھەقسىز كۆرىسىز",
+        shareString: "مۇنداق ئېسسىل فىلىمنى كۆرمەي تۇرالامسىز؟",
+        shareUrl: ""
+      };
+      callAppFunc_WebShare(data);
     }
   }
 };
@@ -120,6 +144,7 @@ export default {
       width: 100%;
       img {
         width: 50%;
+        height: 100%;
         margin: 0;
       }
     }

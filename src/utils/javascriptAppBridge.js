@@ -359,4 +359,10 @@ function callAppFunc_JumpAnchor(data) {
   });
 }
 
-export { callAppFunc_JumpAnchor };
+export {
+  callAppFunc_JumpAnchor,
+  callAppFunc_getSomeParams,
+  callAppFunc_isEnableRefresh,
+  callAppFunc_WebShare,
+  callAppFunc_Jump2KoznakVip,
+};

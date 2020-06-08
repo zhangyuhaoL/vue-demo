@@ -14,7 +14,7 @@
             now - item.time >= 0 ? 'locked' : '',
             item.name === current ? 'choosed' : '',
           ]"
-          @click="handleCurrent(item.name)"
+          @click="handleCurrent(item)"
         ></div>
       </div>
     </header>
@@ -27,6 +27,7 @@
 </template>
 <script>
 import moment from "moment";
+import { param } from "@/utils/tools";
 import one from "@/components/active/one";
 import two from "@/components/active/two";
 import three from "@/components/active/three";
@@ -114,7 +115,11 @@ export default {
      * @return:
      */
     handleCurrent(item) {
-      this.current = item;
+      this.current = item.name;
+      console.log(2, param);
+      param.eventType = "1";
+      param.mess = `【${moment(item.time).format("MM.DD")}】按钮UV`;
+      this.reportStat(param);
     }
   }
 };
