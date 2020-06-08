@@ -2,13 +2,15 @@
  * @Description: 
  * @Author: zhangyuhao
  * @Date: 2020-06-05 17:50:44
- * @LastEditTime: 2020-06-05 18:39:44
+ * @LastEditTime: 2020-06-08 11:08:41
  * @LastEdiors: zhangyuhao
 --> 
 <template>
   <div class="main">
     <div class="box">
-      <div class="mask" v-if="!isHidden"></div>
+      <div class="mask" v-if="isHidden">
+        <p>6-ئاينىڭ 14-كۈنى نادىر فىلىملەرنى كۆرۈڭ</p>
+      </div>
       <img src="@/assets/img/three/three1.png" alt />
       <img @click="goMovie(movieInfos[0])" src="@/assets/img/three/ygzyx.png" alt />
       <img src="@/assets/img/three/three2.png" alt />
@@ -50,6 +52,7 @@
 <script>
 export default {
   name: "three",
+  props: ["isHidden"],
   data() {
     return {
       movieInfos: [
@@ -130,6 +133,12 @@ export default {
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.8);
+      p {
+        margin-top: 0.6rem;
+        text-align: center;
+        font-size: 0.4rem;
+        color: #fff;
+      }
     }
   }
   img {

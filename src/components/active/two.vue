@@ -2,13 +2,15 @@
  * @Description: 第二个活动页面
  * @Author: zhangyuhao
  * @Date: 2020-06-05 14:56:33
- * @LastEditTime: 2020-06-05 18:39:34
+ * @LastEditTime: 2020-06-08 11:12:02
  * @LastEdiors: zhangyuhao
 -->
 <template>
   <div class="main">
     <div class="box">
-      <div class="mask" v-if="!isHidden"></div>
+      <div class="mask" v-if="isHidden">
+        <p>6-ئاينىڭ 13-كۈنى چوقۇم كىرىپ كۆرۈڭ</p>
+      </div>
       <img src="@/assets/img/two/two1.png" alt />
       <img @click="goMovie(movieInfos[2])" src="@/assets/img/two/zjz.png" alt />
       <img src="@/assets/img/two/two2.png" alt />
@@ -50,6 +52,7 @@
 <script>
 export default {
   name: "two",
+  props: ["isHidden"],
   data() {
     return {
       movieInfos: [
@@ -129,6 +132,12 @@ export default {
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.8);
+      p {
+        margin-top: 0.6rem;
+        text-align: center;
+        font-size: 0.4rem;
+        color: #fff;
+      }
     }
   }
   img {

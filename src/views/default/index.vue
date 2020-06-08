@@ -18,8 +18,10 @@
         ></div>
       </div>
     </header>
-    <transition name="transBox">
-      <component :is="current" :isHidden="isHidden"></component>
+    <transition name="transBox" mode="out-in">
+      <keep-alive>
+        <component :is="current" :isHidden="isHidden"></component>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -28,36 +30,40 @@ import moment from "moment";
 import one from "@/components/active/one";
 import two from "@/components/active/two";
 import three from "@/components/active/three";
+import four from "@/components/active/four";
+import five from "@/components/active/five";
 
 export default {
   name: "default",
   components: {
     one,
     two,
-    three
+    three,
+    four,
+    five
   },
   data() {
     return {
       now: moment(),
       timeData: [
         {
-          time: moment("2020-06-04"),
+          time: moment("2020-06-07"),
           name: "one"
         },
         {
-          time: moment("2020-06-05"),
+          time: moment("2020-06-08"),
           name: "two"
         },
         {
-          time: moment("2020-06-06"),
+          time: moment("2020-06-09"),
           name: "three"
         },
         {
-          time: moment("2020-06-07"),
+          time: moment("2020-06-10"),
           name: "four"
         },
         {
-          time: moment("2020-06-08"),
+          time: moment("2020-06-11"),
           name: "five"
         }
       ],
@@ -120,14 +126,15 @@ export default {
   background-repeat: no-repeat;
 }
 .transBox-enter-active {
-  transition: all 0.4s ease;
+  transition: all 0.6s ease;
 }
 .transBox-leave-active {
-  transition: all 0.4s ease;
+  transition: all 0.6s ease;
 }
 .transBox-enter,
 .transBox-leave {
   opacity: 0;
+  // transform: translateX(10px);
 }
 .main-box {
   width: 100%;

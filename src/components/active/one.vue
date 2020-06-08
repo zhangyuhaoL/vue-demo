@@ -2,13 +2,13 @@
  * @Description: 第一个活动页面
  * @Author: zhangyuhao
  * @Date: 2020-06-05 14:56:33
- * @LastEditTime: 2020-06-05 17:28:54
+ * @LastEditTime: 2020-06-08 09:33:09
  * @LastEdiors: zhangyuhao
 -->
 <template>
   <div class="main">
     <div class="box">
-      <div class="mask" v-if="!isHidden"></div>
+      <div class="mask" v-if="isHidden"></div>
       <img src="@/assets/img/one/one1.png" alt />
       <img @click="goMovie(movieInfos[0])" src="@/assets/img/one/tjzs.png" alt />
       <img src="@/assets/img/one/one2.png" alt />
@@ -50,6 +50,7 @@
 <script>
 export default {
   name: "one",
+  props: ["isHidden"],
   data() {
     return {
       movieInfos: [
