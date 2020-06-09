@@ -56,7 +56,7 @@ export default {
           name: "two"
         },
         {
-          time: moment("2020-06-09"),
+          time: moment("2020-06-12"),
           name: "three"
         },
         {
@@ -90,6 +90,7 @@ export default {
   },
   mounted() {
     this.initToday();
+    console.log(5555, window.origin);
   },
   methods: {
     /**
@@ -106,6 +107,9 @@ export default {
           current = timeData[i].name;
           break;
         }
+      }
+      if (!current) {
+        current = "one";
       }
       this.current = current;
     },

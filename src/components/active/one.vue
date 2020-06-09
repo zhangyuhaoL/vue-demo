@@ -2,7 +2,7 @@
  * @Description: 第一个活动页面
  * @Author: zhangyuhao
  * @Date: 2020-06-05 14:56:33
- * @LastEditTime: 2020-06-08 16:10:38
+ * @LastEditTime: 2020-06-09 10:16:14
  * @LastEdiors: zhangyuhao
 -->
 <template>
@@ -114,7 +114,7 @@ export default {
       const data = {
         shareTitle: "ئەڭ ئالقىشلىق فىلىمنى ھەقسىز كۆرىسىز",
         shareString: "مۇنداق ئېسسىل فىلىمنى كۆرمەي تۇرالامسىز؟",
-        shareUrl: ""
+        shareUrl: `${window.origin}/share/index.html`
       };
       callAppFunc_WebShare(data);
     }
